@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evaluación - Sociedad chilena a inicios del siglo XX</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f4f4f4; }
+    h1 { text-align: center; color: #333; }
+    .pregunta { background: #fff; padding: 15px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .opcion { margin: 8px 0; }
+    button { margin-top: 10px; background: #4caf50; color: #fff; border: none; padding: 8px 12px; cursor: pointer; border-radius: 5px; }
+    button:hover { background: #45a049; }
+    .feedback { margin-top: 10px; font-weight: bold; }
+    .feedback.correcta { color: green; }
+    .feedback.incorrecta { color: red; }
+    .pista { background: #eef; padding: 8px; margin-top: 5px; border-left: 3px solid #00f; display: none; }
+  </style>
+</head>
+<body>
+
+<h1>Evaluación Formativa: Sociedad chilena a inicios del siglo XX</h1>
+
+<!-- Pregunta 1 -->
+<div class="pregunta" id="p1">
+  <p><strong>1. ¿Qué grupo social chileno de inicios del siglo XX estaba compuesto por campesinos y obreros con escasos recursos económicos?</strong></p>
+  <div class="opcion"><input type="radio" name="p1" value="a"> A. Oligarquía</div>
+  <div class="opcion"><input type="radio" name="p1" value="b"> B. Sectores medios</div>
+  <div class="opcion"><input type="radio" name="p1" value="c"> C. Sectores populares</div>
+  <button onclick="revisar('p1','c','La oligarquía concentraba la riqueza y poder político. Los sectores medios eran empleados y profesionales. Los sectores populares eran campesinos y obreros con escasos recursos.')">Revisar</button>
+  <div class="feedback" id="p1-feedback"></div>
+</div>
+
+<!-- Pregunta 2 -->
+<div class="pregunta" id="p2">
+  <p><strong>2. Según el texto, ¿qué permitió a los sectores medios y populares organizarse y exigir mejoras laborales y sociales?</strong></p>
+  <div class="opcion"><input type="radio" name="p2" value="a"> A. La represión ejercida por el Estado</div>
+  <div class="opcion"><input type="radio" name="p2" value="b"> B. La creación de organizaciones sociales</div>
+  <div class="opcion"><input type="radio" name="p2" value="c"> C. Las alianzas matrimoniales con la aristocracia</div>
+  <button onclick="revisar('p2','b','La creación de organizaciones permitió que estos sectores participaran en el debate político y la vida pública.')">Revisar</button>
+  <div class="feedback" id="p2-feedback"></div>
+</div>
+
+<!-- Pregunta 3 con pistas -->
+<div class="pregunta" id="p3">
+  <p><strong>3. (Pistas) ¿Cómo se denominó el conjunto de problemas sociales derivados del crecimiento urbano y la modernización desigual durante el auge salitrero?</strong></p>
+  <input type="text" id="respuesta3" placeholder="Escribe tu respuesta aquí" />
+  <button onclick="revisarPistas()">Revisar</button>
+  <div class="feedback" id="p3-feedback"></div>
+  <div class="pista" id="pista1">Pista 1: Se refiere a problemas de vivienda, higiene y salud.</div>
+  <div class="pista" id="pista2">Pista 2: Es un concepto usado por Augusto Orrego Luco en 1884.</div>
+  <div class="pista" id="pista3">Pista 3: Su nombre comienza con la palabra "cuestión".</div>
+</div>
+
+<!-- Pregunta 4 -->
+<div class="pregunta" id="p4">
+  <p><strong>4. Selecciona el enunciado que caracteriza correctamente a la oligarquía chilena de inicios del siglo XX:</strong></p>
+  <div class="opcion"><input type="radio" name="p4" value="a"> A. Grupo de trabajadores que vendían su mano de obra.</div>
+  <div class="opcion"><input type="radio" name="p4" value="b"> B. Grupo que controlaba el comercio, las industrias y el sistema financiero.</div>
+  <div class="opcion"><input type="radio" name="p4" value="c"> C. Grupo de artesanos y funcionarios públicos.</div>
+  <button onclick="revisar('p4','b','La oligarquía estaba compuesta por la aristocracia y la burguesía, controlando el comercio, industrias y finanzas.')">Revisar</button>
+  <div class="feedback" id="p4-feedback"></div>
+</div>
+
+<script>
+function revisar(id, correcta, explicacion) {
+  const seleccionada = document.querySelector(`input[name="${id}"]:checked`);
+  const feedback = document.getElementById(`${id}-feedback`);
+  if (!seleccionada) {
+    feedback.textContent = "⚠️ Debes seleccionar una opción.";
+    feedback.className = "feedback incorrecta";
+    return;
+  }
+  if (seleccionada.value === correcta) {
+    feedback.textContent = "✅ ¡Correcto! " + explicacion;
+    feedback.className = "feedback correcta";
+  } else {
+    feedback.textContent = "❌ Incorrecto. " + explicacion;
+    feedback.className = "feedback incorrecta";
+  }
+}
+
+let pistaActual = 0;
+function revisarPistas() {
+  const resp = document.getElementById('respuesta3').value.trim().toLowerCase();
+  const feedback = document.getElementById('p3-feedback');
+  if (resp === 'cuestión social' || resp === 'cuestion social') {
+    feedback.textContent = "✅ ¡Correcto! Se denomina 'Cuestión Social'.";
+    feedback.className = "feedback correcta";
+  } else {
+    feedback.textContent = "❌ Incorrecto. Intenta nuevamente.";
+    feedback.className = "feedback incorrecta";
+    pistaActual++;
+    if (pistaActual <= 3) {
+      document.getElementById(`pista${pistaActual}`).style.display = "block";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
